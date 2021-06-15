@@ -16,9 +16,12 @@
 **/
 #include <stdint.h>
 #include <stdbool.h>
+
+
 #include "./inc/main.h"
 #include "./inc/timers.h"
 #include "./use/Utility.h"
+#include "./use/fixtures.h"
 /**
  *? =======================================================================================================================
  *?                                                   DEFININGS
@@ -28,7 +31,7 @@
 //* BUFFERs
 
 uint16_t PacchettoDMX[DMX_size];
-uint32_t ContainerDMX[DMX_size][SlotData_Size];
+uint32_t ContainerDMX[channel][value];
 /*------------------------------------------------------------------------------------------------*/
 //* UTILITIEs
 
@@ -107,24 +110,37 @@ void FreqVar (uint16_t lenght){
  * *  4  DMX_Scanner
  *---------------------------------------------------------------------------------------------**/ 
 
+//CHIEDIAMO il BUFFER e il TIPO di INVIO/RICEZIONE DMX
+// RICEZIONE = 0
+// INVIO = 1
 
-void DMX_Starter(uint32_t bufferD[]){
+void DMX_Starter(uint32_t bufferD[], uint8_t DMXType){
+    uint8_t DmxType = DMXType;                    // Costruttore  
     TimerIsOn();                                  // Timer per segnalare il tempo al programma
-     lengthofBUf = strlen(bufferD);       //lunghezza del buffer
 
-                                                  //Inizia a fare la lettura e salvataggio dei pacchetti 
-     if (TimerTime.app_tick_25ms){
+    //Parte la lettura del DMX
+    if(DmxType==0){
+         lengthofBUf = strlen(bufferD);               //lunghezza del buffer
+                                                      //Inizia a fare la lettura e salvataggio dei pacchetti 
+         if (TimerTime.app_tick_25ms){                ///* Se è già nell'interrupt del main allora posso lasciare stare sinceramente  
 
-         CronoIsON();                             // Cronometro per definire (tramite calcolo) l'entità dei pacchetti
-         for (uint8_t i=0; i<lengthofBUf;i++){   
-              PacchettoDMX[i]= bufferD[i];   
-         } 
-     }
-  
-    FreqVar(lengthofBUf);
-    CronoIsOFF();
-    Dmx_INIT=1;
+             CronoIsON();                             // Cronometro per definire (tramite calcolo) l'entità dei pacchetti
+             
+             for (uint8_t i=0; i<lengthofBUf;i++){   
+                  PacchettoDMX[i]= bufferD[i];   
+             } 
+         }
     
+        FreqVar(lengthofBUf);
+        CronoIsOFF();
+        Dmx_INIT=1;
+    }
+
+    //Inizia la scrittura del buffer
+    if (DmxType == 1){
+        
+        
+    }
 }
 
 
@@ -135,26 +151,29 @@ void DMX_Starter(uint32_t bufferD[]){
 */
 
 void DMX_Scanner(void){
-    uint8_t channel; 
+    uint8_t ChannelData=0;
     uint8_t timeHasGone = 0;
     uint16_t QtaSlotInviabili = 0;
 
 
     if (Dmx_INIT){
+        Dmx_INIT = 0;
+        
         if(errorStat.TimeError){
-
+           //FIXME WARNING DA IMPLEMENTARE      
+           
         }
-        else if(errorStat.TimeError=0){}
+        
         
         if (TimerTime.app_tick_25ms)
         {
-            uint8_t channel=0;
 
             do{
-             ContainerDMX[channel][PacchettoDMX[channel]] ;     //idealmente contine il numero del canale e il suo valore 
+             
 
+               ChannelData++; //Incremento Canale         
             }
-            while (channel<=lengthofBUf);
+            while (ChannelData<=lengthofBUf);
            
             /* code */
         }        
