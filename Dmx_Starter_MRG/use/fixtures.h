@@ -7,33 +7,63 @@
 ?  ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 */
 
+#include <stdint.h>
 #ifndef FIXTURE_H
 #define FIXTURE_H
-#define Fixture_normal
 
-    #ifdef Fixture_normal
-        #define channel 128
-        #define value   4
-    #endif
+uint8_t fixture_type;
+extern uint8_t channel=0;
+extern uint8_t value=0; 
 
-    #ifdef Fixture_slider
-        #define channel 102
-        #define value   5
-    #endif
+typedef enum {
+    normal = 1      ,                   //
+    slider          , 
+    testeRotanti    ,
+    multiCH         ,
+    multiTeste
+}Fixture; 
 
-    #ifdef Fixture_testeRotanti
-        #define channel 85
-        #define value   6
-    #endif
 
-    #ifdef Fixture_multiCH
-        #define channel 64
-        #define value   8
-    #endif
 
-    #ifdef Fixture_MultiTeste
-        #define channel 51
-        #define value   10
-    #endif
 
+void start_fixtures(Fixture x){
+
+
+  
+    switch (x) {
+        case 1 : 
+                channel = 128;
+                value =  4   ;
+        break; 
+
+        case 2 : 
+                channel = 102;
+                value =  5   ;
+        break; 
+    
+         case 3 : 
+                channel = 85 ;
+                value =  6   ;
+        break; 
+
+        case 4 : 
+                channel = 64 ;
+                value =  8   ; 
+        break; 
+
+        case 5 : 
+                channel = 51 ;
+                value = 10   ; 
+        break; 
+
+        default:
+         channel=0;
+         value=0; 
+        break;
+    } 
+
+}
 #endif
+
+
+
