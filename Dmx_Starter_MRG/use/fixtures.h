@@ -11,9 +11,9 @@
 #ifndef FIXTURE_H
 #define FIXTURE_H
 
+extern uint8_t channel;
+extern uint8_t value; 
 uint8_t fixture_type;
-extern uint8_t channel=0;
-extern uint8_t value=0; 
 
 typedef enum {
     normal = 1      ,                   //
@@ -57,8 +57,8 @@ void start_fixtures(Fixture x){
         break; 
 
         default:
-         channel=0;
-         value=0; 
+                channel=0;
+                value=0; 
         break;
     } 
 
