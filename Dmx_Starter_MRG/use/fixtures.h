@@ -16,7 +16,7 @@ extern uint8_t value;
 uint8_t fixture_type;
 
 typedef enum {
-    normal = 1      ,                   //
+    normal = 1      ,                   //Valore incrementale
     slider          , 
     testeRotanti    ,
     multiCH         ,

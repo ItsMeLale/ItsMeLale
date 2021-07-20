@@ -20,8 +20,7 @@
  *? =======================================================================================================================
 **/
 
-uint8_t DMX_Scanner(uint8_t init, uint16_t length, uint16_t *bufferDMX)
-
+uint8_t DMX_Scanner(uint8_t init, uint16_t length, uint16_t *bufferDMX);
 
 
 #endif

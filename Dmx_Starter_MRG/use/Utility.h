@@ -20,6 +20,6 @@
 **/
 
 unsigned int strlen(const char*);
-void myMemCpy(void *dest, void *src, size_t n)
+void myMemCpy(void *dest, void *src, size_t n);
 
 #endif

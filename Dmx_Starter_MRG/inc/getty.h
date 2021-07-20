@@ -13,7 +13,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "./src/getty.c"
 
 /**
  *? =======================================================================================================================
@@ -34,10 +33,6 @@ typedef struct {
  *? =======================================================================================================================
 **/
 
-typedef struct {
-  bool is_rdm;
-  uint32_t time_Break;
-
 // ---- define total packets -------------------------------------------------------------
   #define	tempoScadenzaTimeout   1500000   // In questo tempo ho perso 6 pacchetti 
   #define	tild_BAUD			      	  270000   // Velocità dei pacchetti 
@@ -57,7 +52,7 @@ typedef struct {
 
   #define total_time_garanted        110  //tempo per inviare tutti i pacchetti  
 
-} timeDefiners;
+
 
 
 /**
@@ -66,9 +61,6 @@ typedef struct {
  *? =======================================================================================================================
 **/
 
-typedef struct {
- 
-  uint32_t value_Break;
 
   #define value_dmxStCode           0x00
   #define value_rdmStCode           0xCC
@@ -76,7 +68,6 @@ typedef struct {
 
   #define value_MAB                 0x03
 
-}value_define;
 
 
 
